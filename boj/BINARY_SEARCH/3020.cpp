@@ -1,3 +1,9 @@
+//lower_bound를 이용한 문제이다
+//배열에 저장하고 각 높이별로 몇개를 부수는지 바로 찾으면 된다
+//이 때 배열에 정렬해서 저장한 뒤 lower_bound를 이용한다면 
+//현재 지나가는 높이를 포함하는 구간을 쉽게 찾을 수 있다
+//홀수 일때는 거꾸로 저장되므로 유의해서 풀면 된다!
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -7,7 +13,7 @@ int ans[200020];
 vector<int> odd,even;
 
 int main(){
-    freopen("input.txt","r",stdin);
+    //freopen("input.txt","r",stdin);
     scanf(" %d %d",&n,&h);
     for(int i=0;i<n;i++){
         int x; scanf(" %d",&x); x--;
