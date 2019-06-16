@@ -1,3 +1,10 @@
+//이분탐색으로 풀리는 문제이다
+//그냥 mid 값을 찾는 값으로 두고 정말 찾으면 된다
+//근데 set으로는 왜 시간초과가 날까
+//잘 모르겠다
+//set으로 풀려고 발버둥치다가 결국 풀지못하고
+//이분탐색으로 정석대로 풀었다!
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -17,7 +24,7 @@ bool bs(int pos,int val){
     return false;
 }
 int main(){
-    freopen("input.txt","r",stdin);
+    //freopen("input.txt","r",stdin);
     while(scanf("%d",&t) != -1){
         bool check = false;
         t*=10000000; vt.clear();
