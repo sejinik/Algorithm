@@ -2,38 +2,21 @@
 #include <algorithm>
 #include <vector>
 using namespace std;
-int t,n;
+int n,m,ans,p;
 vector<int> vt;
-
-bool bs(int pos,int val){
-    int l = pos+1;
-    int r = vt.size()-1;
-    while(l<=r){
-        int mid = (l+r)/2;
-        if(vt[mid]==val) return true;
-        if(vt[mid]>val) r = mid-1;
-        else l = mid+1;
-    }
-    return false;
-}
 int main(){
-    freopen("input.txt","r",stdin);
-    while(scanf("%d",&t) != -1){
-        bool check = false;
-        t*=10000000; vt.clear();
-        scanf(" %d",&n);
-        for(int i=0;i<n;i++){
-            int a; scanf(" %d",&a);
-            vt.push_back(a);
-        }
-        sort(vt.begin(),vt.end());
-        for(int i=0;i<n;i++){
-            int c = t-vt[i];
-            if(bs(i,c)){
-                printf("yes %d %d\n",vt[i],c); 
-                check=true; break;
-            }
-        }
-        if(!check) puts("danger");
+    //freopen("input.txt","r",stdin);
+    scanf(" %d %d",&n,&m);
+    vt.resize(m);
+    for(int i=0;i<m;i++) {
+        int x; scanf(" %d",&x);
+        vt[i]=x;
     }
+    ans = max(vt[0],n-vt[m-1]);
+    for(int i=1;i<m-1;i++){
+        int r =vt[i+1]-vt[i];
+        int a = (r+1)/2;
+        ans = max(ans,a);
+    }
+    printf("%d\n",ans);
 }
