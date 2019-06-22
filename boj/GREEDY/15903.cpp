@@ -1,3 +1,8 @@
+//그리디 문제
+//우선수위큐를 이용하면 쉽게 풀 수 있다
+//최소값2개를 계속 더해가면 된다
+//pq는 최대힙이기 때문에 -를 붙여서 저장해 최소값을 계속 찾아준다
+
 #include <iostream>
 #include <queue>
 using namespace std;
