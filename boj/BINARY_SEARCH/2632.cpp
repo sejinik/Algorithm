@@ -1,3 +1,10 @@
+//lower_bound && upper_bound를 이용해 풀었다
+//피자가 원이라는것을 생각해야한다
+//원이기때문에 배열의 끝과 시작을 이어서 생각해야한다!
+//연속적인 수를 모두 더해서 배열에 넣고 정렬을 시킨다
+//그리고 lower&&upper을 통해 만족하는 수를 찾는다!
+//A에서는 i를 B에서는 값-i를 찾으면 된다!
+
 #include <iostream>
 #include <set>
 #include <algorithm>
