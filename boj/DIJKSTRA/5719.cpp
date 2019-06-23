@@ -1,3 +1,11 @@
+//다익스트라를 이용해 푸는 문제이다 2번째로 작은 최단거리를 찾으면 된다
+//먼저 다익스트라를 돌리고 최단거리를 찾는다
+//이 때 최단거리를 지워야하므로 지나가는 경로를 저장하자!
+//pre라는 벡터에 내가 최단거리를 가고있는 모든 경우를 저장한다
+//그리고 거꾸로 목적지에서 출발지로 타고오며 set에 담아준다
+//그 후 지워야할 길들을 체크하며 다시 그래프를 그려준다
+//마지막으로 최단거리를 구하면 정답이 된다!
+
 #include <iostream>
 #include <algorithm>
 #include <queue>
@@ -39,7 +47,7 @@ int dijk(){
     return d[t];
 }
 int main(){
-    freopen("input.txt","r",stdin);
+    //freopen("input.txt","r",stdin);
     while(scanf(" %d %d",&n,&m)){
         if(n==0 && m==0) return 0;
         check.clear();
