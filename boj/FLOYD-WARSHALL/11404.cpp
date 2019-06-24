@@ -1,3 +1,7 @@
+//플로이드 기본문제
+//최단거리를 구할때도 사용 가능하고 두 정점이 연결되어있는지 확인할때도 사용 가능
+// d[i,k] = min(d[i,k],d[i,j]+d[j,k]);
+
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -7,7 +11,7 @@ ll d[111][111];
 int n,m;
 
 int main(){
-    freopen("input.txt","r",stdin);
+    //freopen("input.txt","r",stdin);
     for(int i=0;i<101;i++){
         for(int j=0;j<101; j++) d[i][j]=inf;
         d[i][i]=0;
