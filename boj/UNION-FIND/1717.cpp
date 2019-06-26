@@ -1,3 +1,7 @@
+//union-find 의 기본 문제이다
+//같은 집합으로 만들때는 부모를 같게만들고
+//같은 집한인지 확인할때는 부모를 확인하면된다
+
 #include <iostream>
 using namespace std;
 int n,m;
