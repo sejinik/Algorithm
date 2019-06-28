@@ -1,3 +1,12 @@
+//정렬 + 그리디 문제이다
+//pq를 이용해서 정렬하고 큰값을보며 마지막으로 더한값을 last에 담아갔다
+//만약 개수가 last보다 많다면 last-1을
+//아니라면 개수를 더한다
+// 근데 시간초과가 났다
+// 방법은 같은데 pq를 써서 그런가보다
+// 벡터로 똑같이 풀면 시간안에 들어온다!
+// 시간 고려해서 벡터로 우선 풀수있으면 하자!
+
 #include <iostream>
 #include <algorithm>
 #include <cstring>
@@ -5,7 +14,7 @@
 using namespace std;
 int q,n;
 int main(){   
-    freopen("input.txt","r",stdin);
+    //freopen("input.txt","r",stdin);
     scanf(" %d",&q);
     while(q--){
         scanf(" %d",&n);
