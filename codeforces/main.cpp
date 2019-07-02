@@ -1,33 +1,39 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include <cstring>
-#include <queue>
 using namespace std;
-int q,n;
-int main(){   
+int n,m;
+vector<pair<int,int>> DOWN;
+int arr[1010];
+
+int main(){
     freopen("input.txt","r",stdin);
-    scanf(" %d",&q);
-    while(q--){
-        scanf(" %d",&n);
-        vector<int> vt(n+1);
-        for(int i=0;i<n;i++){
-            int x; scanf(" %d",&x);
-            vt[x]++; 
+    memset(arr,-1,sizeof(arr));
+    scanf(" %d  %d",&n,&m);
+
+    for(int i=0;i<m;i++){
+        int a,b,c; scanf(" %d %d %d",&a,&b,&c);
+        if(!a) DOWN.push_back({b,c});
+        else {
+            for(int j=b+1;j<=c;j++) arr[j]=0;
         }
-        sort(vt.begin(),vt.end());
-        reverse(vt.begin(),vt.end());
-        int ans= vt[0];
-        int last = vt[0];
-        for(int i=1;i<=n;i++){
-            if(vt[i]>=last){
-                ans+=last-1;
-                last--;
-            } else {
-                ans += vt[i];
-                last =vt[i];
-            }
-            if(last<=1) break;
-        }
-        printf("%d\n",ans);
     }
+
+    arr[1]=10000;
+    for(int i=1;i<n;i++) arr[i+1]+=arr[i];
+
+    for(int i=0;i<DOWN.size();i++){
+        int l=DOWN[i].first;
+        int r=DOWN[i].second;
+        bool check= false;
+        for(int j=l;j<=r;j++){
+            if(arr[l]>arr[r]) check=true;
+        }
+        if(!check){
+            puts("NO"); return 0;
+        }
+    }
+    puts("YES");
+    for(int i=1;i<=n;i++) printf("%d ",arr[i]);
 }
