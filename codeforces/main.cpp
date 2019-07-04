@@ -1,66 +1,80 @@
 #include <iostream>
 #include <algorithm>
-#include <vector>
+#include <cstring>
 using namespace std;
-#define ll long long
-const int MAXN = 200020;
-int n;
-ll ans,dp[MAXN];
-vector<vector<int>> Graph;
-int sz[MAXN];
-
-int calSz(int x,int p=-1){
-    sz[x]=1;
-    for(int i=0;i<Graph[x].size();i++){
-        int next = Graph[x][i];
-        if(next!=p) sz[x]+=calSz(next,x);
+int t,n,m;
+pair<int,int> S[26],E[26];
+char map[2020][2020];
+bool check[26];
+ 
+bool r(int index){
+    int x = S[index].first;
+    int y = S[index].second;
+    char c= map[x][y];
+    for(int i=S[index].second;i<=E[index].second;i++){
+        if((c==map[x][i]) || (map[x][i]=='*')) map[x][i]='*';
+        else return false;
     }
-    return sz[x];
+    return true;
 }
-
-ll calDp(int x,int p=-1){
-    dp[x]=sz[x];
-    for(int i=0;i<Graph[x].size();i++){
-        int next = Graph[x][i];
-        if(next!=p) dp[x]+=calDp(next,x);
+ 
+bool l(int index){
+    int x = S[index].first;
+    int y = S[index].second;
+    char c = map[x][y];
+    for(int i=S[index].first;i<=E[index].first;i++){
+        if((c==map[i][y]) || (map[i][y]=='*')) map[i][y]='*';
+        else return false;
     }
-    return dp[x];
+    return true;
 }
-
-void solve(int x,int p=-1){
-    ans = max(ans,dp[x]);
-    for(int i=0;i<Graph[x].size();i++){
-        int next = Graph[x][i];
-        if(next!=p){
-            dp[x]-=dp[next];
-            dp[x]-=sz[next];
-            sz[x]-=sz[next];
-            dp[next]+=dp[x];
-            dp[next]+=sz[x];
-            sz[next]+=sz[x];
-            solve(next,x);
-            sz[next]-=sz[x];
-            dp[next]-=sz[x];
-            dp[next]-=dp[x];
-            sz[x]+=sz[next];    
-            dp[x]+=sz[next];
-            dp[x]+=dp[next];
+int main(){
+    //freopen("input.txt","r",stdin);
+    scanf(" %d",&t);
+    while(t--){
+        memset(S,0,sizeof(S));
+        memset(E,-1,sizeof(E));
+        memset(map,0,sizeof(map));
+        memset(check,0,sizeof(check));
+        scanf(" %d %d",&n,&m);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                scanf(" %1c",&map[i][j]);
+                if(map[i][j]=='.') continue;
+                int index = map[i][j]-'a';
+                if(!check[index]) {
+                    S[index].first=i,S[index].second=j;
+                    E[index]=S[index];
+                    check[index]=true;
+                } else E[index].first=i,E[index].second=j;
+            }
+        }
+        bool can = true;
+        for(int i=25;i>=0;i--){
+            if(!check[i]) continue;
+            if(S[i].first==E[i].first) can = r(i);
+            else can = l(i);
+            if(!can) break;
+        }
+        if(!can) puts("NO");
+        else {
+            int sz=check[25];
+            for(int i=24;i>=0;i--){
+                if(check[i]) sz++;
+                else {
+                    int prev = i+1;
+                    if(check[prev]){
+                        check[i]=true; sz++;
+                        S[i] = S[prev];
+                        E[i] = E[prev];
+                    }
+                }
+            }
+            puts("YES");
+            printf("%d\n",sz);
+            for(int i=0;i<sz;i++){
+                printf("%d %d %d %d\n",S[i].first+1,S[i].second+1,E[i].first+1,E[i].second+1);
+            }
         }
     }
-}
-
-int main(){
-    freopen("input.txt","r",stdin);
-    scanf(" %d",&n);
-    Graph.resize(n);
-    for(int i=0;i<n-1;i++){
-        int u,v; scanf(" %d %d",&u,&v);
-        u--;v--;
-        Graph[u].push_back(v);
-        Graph[v].push_back(u);
-    }
-    calSz(0);
-    calDp(0);
-    solve(0);
-    printf("%lld\n",ans);
 }
