@@ -15,25 +15,30 @@ bool check[30030];
 int prime[4000];
 int point[30030];
 bool bcheck[4040];
+int Index[30030];
 vector<vector<int>> Graph;
 
 void p() {
+	check[0] = true;
+	check[1] = true;
 	for (int i = 2; i < 30000; i++) {
 		if (!check[i]) {
+			Index[i] = pcnt;
 			prime[pcnt++] = i;
 			for (int j = i * 2; j < 30000; j += i) check[j] = true;
 		}
 	}
 }
 
-bool numCheck(int x, int y) {
-	if (x <= y) return false;
+
+bool numCheck(int x) {
 	vector<int> c;
-	int _x = x;
+	int _x = prime[x];
 	while (_x) {
 		c.push_back(_x % 10);
 		_x /= 10;
-	}
+	}	
+	reverse(c.begin(), c.end());
 	int sz = c.size();
 	for (int i = 0; i < sz; i++) {
 		int temp = 0;
@@ -42,7 +47,9 @@ bool numCheck(int x, int y) {
 			temp *= 10;
 			temp += c[j];
 		}
-		if (temp == y) return true;
+		if (!check[temp]) {
+			Graph[x].push_back(Index[temp]);
+		}
 	}
 	return false;
 }
@@ -84,20 +91,12 @@ bool zcheck(int x) {
 void makeGraph() {
 	p();
 	Graph.resize(pcnt);
-	for (int i = 0; i < pcnt; i++) {
-		for (int j = 0; j < pcnt; j++) {
-			if (i == j) continue;
-			if (numCheck(prime[i], prime[j])) {
-				Graph[i].push_back(j);
-			}
-		}
-	}
+	for (int i = 0; i < pcnt; i++) numCheck(i);
 	for (int i = 0; i < pcnt; i++) {
 		if(zcheck(prime[i])) point[prime[i]] = bfs(i);
 	}
 }
 int main() {
-    freopen("input.txt","r",stdin);
 	makeGraph();
 	scanf(" %d", &t);
 	int c = 1;
