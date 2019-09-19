@@ -1,6 +1,4 @@
-5
-ula
-uka
-klua
-kula
-al
+4
+S 100 3
+W 50 1
+S 10 1
