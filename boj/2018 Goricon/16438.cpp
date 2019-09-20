@@ -18,7 +18,7 @@ void solve(int l,int r,int dep){
 }
 
 int main(){
-    freopen("input.txt","r",stdin);
+    //freopen("input.txt","r",stdin);
     scanf(" %d",&n);
     solve(1,n,0);
     for(int i=0;i<=cnt;i++){
